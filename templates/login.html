@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height:80vh;">
+  <div class="col-md-4">
+    <div class="card shadow-lg border-0">
+      <div class="card-body p-5">
+        <div class="text-center mb-4">
+          <i class="bi bi-box-seam display-4 text-primary"></i>
+          <h3 class="mt-2 fw-bold">Quantix Core</h3>
+          <p class="text-muted small">Sistema Integral de Gestión Operativa</p>
+        </div>
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Usuario</label>
+            <input type="text" name="username" class="form-control" required autofocus>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Contraseña</label>
+            <input type="password" name="password" class="form-control" required>
+          </div>
+          <button class="btn btn-primary w-100">Ingresar</button>
+        </form>
+        <div class="mt-4 small text-muted text-center">
+          <div>admin / admin123</div>
+          <div>operador / operador123</div>
+          <div>consulta / consulta123</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
