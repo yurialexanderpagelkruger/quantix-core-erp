@@ -73,3 +73,7 @@ Al ingresar a la aplicación con las credenciales correspondientes, el sistema d
    ```bash
    git clone [https://github.com/yurialexanderpagelkruger/quantix-core-erp.git](https://github.com/yurialexanderpagelkruger/quantix-core-erp.git)
    cd quantix-core-erp
+
+## 👨‍💻 Autor
+
+Desarrollado por **Yuri Alexander Pagel Krüger**
