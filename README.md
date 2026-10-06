@@ -87,6 +87,6 @@ Upon authenticating with assigned credentials, the platform provisions the follo
    git clone [https://github.com/yurialexanderpagelkruger/quantix-core-erp.git](https://github.com/yurialexanderpagelkruger/quantix-core-erp.git)
    cd quantix-core-erp
 
-## 👨‍💻 Autor
+## 👨‍💻 Author
 
-Desarrollado por **Yuri Alexander Pagel Krüger** 
+Developed by **Yuri Alexander Pagel Krüger**
