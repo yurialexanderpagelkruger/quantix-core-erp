@@ -1,79 +1,92 @@
 # Quantix Core
 
-**Quantix Core** es un sistema integral de gestión operativa, trazabilidad y control de acceso diseñado para PyMEs y comercios. Desarrollado desde un riguroso relevamiento de procesos y análisis funcional, *Quantix Core* reemplaza planillas de cálculo descentralizadas y propensas a errores por una solución estructurada, segura y con trazabilidad completa de punta a punta.
+**Quantix Core** is a comprehensive operational management, traceability, and access control platform engineered for small and medium-sized enterprises (SMBs) and retail businesses. Developed from rigorous business process analysis and functional specification, *Quantix Core* replaces decentralized, error-prone spreadsheets with a structured, secure, and end-to-end traceable enterprise solution.
 
-Con un flujo de trabajo optimizado para la operación diaria, la plataforma centraliza el control de stock en tiempo real, gestión de pedidos, asignación de turnos, facturación y control de acceso basado en roles (RBAC)—eliminando la redundancia de datos y garantizando reportes comerciales confiables.
+Featuring a workflow tailored for daily operations, the platform centralizes real-time inventory tracking, order management, shift scheduling, billing, and role-based access control (RBAC)—eliminating data redundancy and delivering dependable commercial analytics.
 
-## 📸 Capturas de pantalla
+---
+
+## 📸 Screenshots
 
 <div align="center">
   <table>
     <tr>
       <td align="center" valign="bottom" style="padding: 10px;">
-        <p><b>Versión de PC</b></p>
-        <img src="screenshot.png" alt="Versión de PC" height="420" style="border: 1px solid #30363d; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: block;" />
+        <p><b>Desktop Version</b></p>
+        <img src="screenshot.png" alt="Desktop Version" height="420" style="border: 1px solid #30363d; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: block;" />
       </td>
       <td align="center" valign="bottom" style="padding: 10px;">
-        <p><b>Versión Móvil</b></p>
-        <img src="screenshot2.png" alt="Versión Móvil" height="420" style="border: 1px solid #30363d; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: block;" />
+        <p><b>Mobile Version</b></p>
+        <img src="screenshot2.png" alt="Mobile Version" height="420" style="border: 1px solid #30363d; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: block;" />
       </td>
     </tr>
   </table>
 </div>
 
-## ✨ Características principales
+---
 
-* **Arquitectura de datos normalizada:** Base de datos relacional modelada en 3FN con integridad referencial estricta, claves foráneas indexadas y triggers para auditoría histórica.
+## ✨ Key Features
 
-* **Relevamiento funcional documentado:** Incluye especificación formal de requisitos de software (SRS) con casos de uso detallados, diagramas de flujo de procesos (BPMN) y matrices de trazabilidad.
+* **Normalized Data Architecture:** Relational database designed in 3NF with strict referential integrity, indexed foreign keys, and audit triggers for complete historical traceability.
 
-* **Control de acceso basado en roles (RBAC):** Sistema de autenticación y autorización multinivel (Administrador, Operador, Consulta) con hash seguro de contraseñas y permisos granulares por módulo.
+* **Multi-Language Support (i18n):** Fully localized interface supporting 3 languages: English, Spanish, and Portuguese, enabling friction-free operations across multicultural workforces.
 
-* **Trazabilidad total de operaciones:** Bitácora inmutable de auditoría interna que registra usuario, marca de tiempo y estado previo/posterior ante cada modificación crítica de stock o facturación.
+* **Adaptive Theming (Dark & Light Mode):** Native support for both Dark and Light themes that dynamically toggles or adapts to system settings, ensuring high readability across different warehouse and office environments.
 
-* **Control de stock y punto de reposición:** Seguimiento dinámico de existencias, cálculo automático de stock crítico y generación de alertas para reposición de mercadería.
+* **Formal Functional Documentation:** Includes comprehensive Software Requirements Specification (SRS) accompanied by detailed use cases, business process model flows (BPMN), and traceability matrices.
 
-* **Gestión unificada de clientes y pedidos:** Registro de clientes, estados de pedidos (pendiente, en preparación, despachado, cancelado) y vinculación directa con cuentas corrientes.
+* **Role-Based Access Control (RBAC):** Multi-tier authentication and authorization engine (Admin, Operator, Read-Only) enforcing secure password hashing and granular module-level permission enforcement.
 
-* **Motor de reportes ejecutivos:** Exportación automatizada a PDF y Excel con métricas de ventas, balance de caja, rotación de inventario y filtros avanzados por fecha o categoría.
+* **End-to-End Operational Audit Trail:** Immutable internal activity log that captures user IDs, ISO timestamps, and before/after payloads for every sensitive inventory or financial update.
 
-* **Diseño ergonómico enfocado en el operador:** Interfaz pensada para carga rápida de datos mediante atajos de teclado, validación de campos en tiempo real y prevención de ingresos duplicados.
+* **Dynamic Inventory & Reorder Point Control:** Real-time stock level monitoring, automatic critical stock computation, and proactive purchase reorder notifications.
 
-## ⚙️ ¿Qué hace? (Módulos del sistema)
+* **Unified Customer & Order Management:** Centralized registry covering the complete lifecycle of customer orders (Pending, Processing, Dispatched, Cancelled) mapped directly to line-of-credit statements.
 
-Al ingresar a la aplicación con las credenciales correspondientes, el sistema despliega las siguientes áreas según el nivel de acceso:
+* **Executive Reporting Engine:** Automated PDF and Excel export generation for sales velocity, cash register balances, inventory turnover rates, and advanced multi-filter queries.
 
-1. **Autenticación y Seguridad:** Valida identidad contra el catálogo de usuarios, carga el perfil de permisos (RBAC) y abre la sesión con registro en el log de auditoría.
+* **Ergonomic Operator Experience:** Designed for fast data entry via keyboard shortcuts, real-time input validations, and client-side duplicate submission prevention.
 
-2. **Control de Inventario y Almacén:** Permite altas, bajas, modificaciones y ajustes de stock con motivos justificados, actualizando costos y precios de venta al instante.
+---
 
-3. **Gestión Comercial y Facturación:** Procesa ventas en mostrador, emisión de comprobantes, control de formas de pago y actualización en vivo del saldo del cliente.
+## ⚙️ What It Does (System Modules)
 
-4. **Planificación y Turnos:** Administra la agenda de turnos u órdenes de trabajo, evitando superposiciones horarias y notificando disponibilidades.
+Upon authenticating with assigned credentials, the platform provisions the following functional modules based on user authorization levels:
 
-5. **Reportes y Auditoría:** Genera balances, reportes de rentabilidad y exportaciones estructuradas para el área contable en un solo clic.
+1. **Authentication & Identity Security:** Validates credentials against the directory, mounts the corresponding RBAC permission model, and records session initialization inside the audit log.
 
-## 🛠️ Construido con
+2. **Internationalization & Dynamic Theming:** Centralized client configuration manager handling translations across 3 languages (English, Spanish, Portuguese) and dynamic UI token switching between Dark and Light mode.
 
-* **Lenguaje:** C# 12 / .NET 8 (o Python 3.12)
+3. **Inventory & Warehouse Logistics:** Manages stock movements (inbound, outbound, returns, stock counts) with mandatory change justifications, updating valuation metrics and sales pricing in real time.
 
-* **Arquitectura:** Capas desacopladas (Domain, Application, Infrastructure, Presentation) / Patrón MVC-MVVM.
+4. **Point of Sale (POS) & Billing:** Processes counter sales, generates structured fiscal receipts, handles multiple payment instruments, and posts adjustments to ledger balances instantly.
 
-* **Motor de Base de Datos:** PostgreSQL / MariaDB con soporte ACID y transacciones aisladas.
+5. **Shift Scheduling & Dispatch:** Coordinates work orders and staff scheduling, preventing double-booking and exposing resource availability in real time.
 
-* **Seguridad y Acceso:** Cifrado de credenciales con Argon2id / BCrypt y sesiones gestionadas por tokens/roles.
+6. **Reporting & Accounting Telemetry:** Generates balance sheets, operating margin metrics, and structured financial exports formatted for audit inspection in a single click.
 
-* **Documentación de Análisis:** Diagramas UML (Casos de Uso, Secuencia), Modelo Entidad-Relación (DER) y plantilla SRS según estándar IEEE 830.
+---
 
-* **Entorno de desarrollo:** Visual Studio Enterprise 2026.
+## 🛠️ Built With
 
-## 🚀 Instalación y uso
+* **Core Language:** C# 12 / .NET 8 (or Python 3.12).
+* **UI & Styling:** Semantic responsive layout with custom design tokens for native Dark/Light theme modes.
+* **Localization:** Resource-driven i18n localization dictionary layer (English, Spanish, Portuguese).
+* **Architecture:** Clean Architecture / Layered separation (Domain, Application, Infrastructure, Presentation) following MVC-MVVM patterns.
+* **Database Engine:** PostgreSQL / MariaDB with strict ACID compliance and isolated transactions.
+* **Security & Access:** Argon2id / BCrypt credential hashing with token/role-governed session state.
+* **Systems Analysis & Design:** UML Modeling (Use Case, Sequence), Entity-Relationship Models (ERD), and SRS standard IEEE 830 compliance.
+* **Development Environment:** Visual Studio Enterprise 2026 / Visual Studio Code.
 
-1. Cloná el repositorio del proyecto:
+---
+
+## 🚀 Installation and Usage
+
+1. Clone the project repository:
    ```bash
    git clone [https://github.com/yurialexanderpagelkruger/quantix-core-erp.git](https://github.com/yurialexanderpagelkruger/quantix-core-erp.git)
    cd quantix-core-erp
 
 ## 👨‍💻 Autor
 
-Desarrollado por **Yuri Alexander Pagel Krüger**
+Desarrollado por **Yuri Alexander Pagel Krüger** 

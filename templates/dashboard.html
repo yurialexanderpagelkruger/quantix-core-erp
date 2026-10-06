@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="mb-4 fw-bold">Panel de Control</h2>
+<h2 class="mb-4 fw-bold">{{ t.panel_control }}</h2>
 
 <div class="row g-3 mb-4">
   <div class="col-md-3">
     <div class="card border-0 shadow-sm h-100">
       <div class="card-body">
-        <div class="text-muted small">Clientes</div>
+        <div class="text-muted small">{{ t.total_clientes }}</div>
         <div class="display-6 fw-bold">{{ total_clientes }}</div>
         <i class="bi bi-people text-primary fs-3"></i>
       </div>
@@ -15,7 +15,7 @@
   <div class="col-md-3">
     <div class="card border-0 shadow-sm h-100">
       <div class="card-body">
-        <div class="text-muted small">Productos</div>
+        <div class="text-muted small">{{ t.total_productos }}</div>
         <div class="display-6 fw-bold">{{ total_productos }}</div>
         <i class="bi bi-box text-success fs-3"></i>
       </div>
@@ -24,7 +24,7 @@
   <div class="col-md-3">
     <div class="card border-0 shadow-sm h-100">
       <div class="card-body">
-        <div class="text-muted small">Pedidos</div>
+        <div class="text-muted small">{{ t.total_pedidos }}</div>
         <div class="display-6 fw-bold">{{ total_pedidos }}</div>
         <i class="bi bi-cart text-warning fs-3"></i>
       </div>
@@ -33,7 +33,7 @@
   <div class="col-md-3">
     <div class="card border-0 shadow-sm h-100">
       <div class="card-body">
-        <div class="text-muted small">Pedidos Pendientes</div>
+        <div class="text-muted small">{{ t.pedidos_pendientes }}</div>
         <div class="display-6 fw-bold text-danger">{{ pedidos_pendientes }}</div>
         <i class="bi bi-clock-history text-danger fs-3"></i>
       </div>
@@ -45,7 +45,7 @@
   <div class="col-md-4">
     <div class="card border-0 shadow-sm bg-primary text-white h-100">
       <div class="card-body">
-        <div class="small opacity-75">Valor total del Stock</div>
+        <div class="small opacity-75">{{ t.valor_stock }}</div>
         <div class="h3 fw-bold">$ {{ "{:,.0f}".format(valor_stock) }}</div>
       </div>
     </div>
@@ -53,19 +53,31 @@
   <div class="col-md-8">
     <div class="card border-0 shadow-sm h-100">
       <div class="card-body">
-        <h6 class="fw-bold text-danger"><i class="bi bi-exclamation-triangle"></i> Productos bajo stock mínimo</h6>
+        <h6 class="fw-bold text-danger"><i class="bi bi-exclamation-triangle"></i> {{ t.bajo_stock }}</h6>
         {% if bajo_stock %}
         <table class="table table-sm mb-0">
-          <thead><tr><th>Código</th><th>Producto</th><th>Stock</th><th>Mínimo</th></tr></thead>
+          <thead>
+            <tr>
+              <th>{{ t.codigo }}</th>
+              <th>{{ t.producto }}</th>
+              <th>{{ t.stock }}</th>
+              <th>{{ t.minimo }}</th>
+            </tr>
+          </thead>
           <tbody>
           {% for p in bajo_stock %}
-            <tr><td>{{ p.codigo }}</td><td>{{ p.nombre }}</td>
+            <tr>
+              <td>{{ p.codigo }}</td>
+              <td>{{ p.nombre }}</td>
               <td><span class="badge bg-danger">{{ p.stock }}</span></td>
-              <td>{{ p.stock_minimo }}</td></tr>
+              <td>{{ p.stock_minimo }}</td>
+            </tr>
           {% endfor %}
           </tbody>
         </table>
-        {% else %}<p class="text-muted mb-0">Sin alertas de stock.</p>{% endif %}
+        {% else %}
+          <p class="text-muted mb-0">{{ t.sin_alertas }}</p>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -73,9 +85,17 @@
 
 <div class="card border-0 shadow-sm">
   <div class="card-body">
-    <h6 class="fw-bold">Últimos pedidos</h6>
+    <h6 class="fw-bold">{{ t.ultimos_pedidos }}</h6>
     <table class="table table-hover mb-0">
-      <thead><tr><th>#</th><th>Cliente</th><th>Fecha</th><th>Estado</th><th class="text-end">Total</th></tr></thead>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{{ t.cliente }}</th>
+          <th>{{ t.fecha }}</th>
+          <th>{{ t.estado }}</th>
+          <th class="text-end">{{ t.total }}</th>
+        </tr>
+      </thead>
       <tbody>
       {% for p in ultimos_pedidos %}
         <tr>
@@ -86,7 +106,7 @@
           <td class="text-end">$ {{ "{:,.0f}".format(p.total) }}</td>
         </tr>
       {% else %}
-        <tr><td colspan="5" class="text-muted">Sin pedidos registrados.</td></tr>
+        <tr><td colspan="5" class="text-muted">{{ t.sin_pedidos }}</td></tr>
       {% endfor %}
       </tbody>
     </table>

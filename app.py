@@ -2,10 +2,11 @@ from functools import wraps
 from datetime import datetime, timedelta
 from flask import (
     Flask, render_template, request, redirect, url_for,
-    session, flash, jsonify, Response
+    session, flash, jsonify, Response, g
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from database import get_connection, init_database, registrar_auditoria
+from translations import LANGUAGES, detect_language
 
 app = Flask(__name__)
 app.secret_key = "quantix-core-secret-key-2026"
@@ -38,20 +39,53 @@ def require_perm(permiso):
         def wrapper(*args, **kwargs):
             rol = session.get("rol")
             if permiso not in PERMISOS_ESCRITURA.get(rol, []):
-                flash("No tenés permisos para realizar esta acción.", "danger")
+                flash(tr("no_permisos", "No tenés permisos para realizar esta acción."), "danger")
                 return redirect(url_for("dashboard"))
             return f(*args, **kwargs)
         return wrapper
     return decorator
 
 
+def get_lang():
+    lang = request.args.get("lang")
+    if lang in LANGUAGES:
+        session["lang"] = lang
+        return lang
+    if "lang" in session:
+        return session["lang"]
+    detected = detect_language(request.headers.get("Accept-Language"))
+    session["lang"] = detected
+    return detected
+
+
+def tr(key, fallback=""):
+    lang = session.get("lang", "en")
+    return LANGUAGES.get(lang, {}).get(key, fallback or key)
+
+
+@app.before_request
+def set_context():
+    g.lang = get_lang()
+
+
 @app.context_processor
-def inject_user():
+def inject_globals():
+    lang = g.get("lang", "en")
     return {
         "current_user": session.get("nombre"),
         "current_rol": session.get("rol"),
         "menu": ROLES.get(session.get("rol"), []),
+        "lang": lang,
+        "t": LANGUAGES.get(lang, LANGUAGES["en"]),
+        "tr": tr,
     }
+
+
+@app.route("/set-theme/<theme>")
+def set_theme(theme):
+    if theme in ("light", "dark"):
+        session["theme"] = theme
+    return redirect(request.referrer or url_for("dashboard"))
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -71,7 +105,7 @@ def login():
             session["rol"] = user["rol"]
             registrar_auditoria(user["id"], "LOGIN", f"Ingreso de {username}")
             return redirect(url_for("dashboard"))
-        flash("Credenciales inválidas.", "danger")
+        flash(tr("invalid_credentials", "Credenciales inválidas."), "danger")
     return render_template("login.html")
 
 

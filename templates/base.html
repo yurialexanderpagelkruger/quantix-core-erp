@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ lang }}" data-bs-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quantix Core</title>
+<title>{{ t.app_name }}</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+<script>
+(function(){
+  var saved = "{{ session.get('theme', '') }}";
+  var theme = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  document.documentElement.setAttribute("data-bs-theme", theme);
+})();
+</script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-  <div class="container-fluid">
+  <div class="container-fluid px-4">
     <a class="navbar-brand fw-bold" href="{{ url_for('dashboard') }}">
-      <i class="bi bi-box-seam"></i> Quantix Core
+      <i class="bi bi-box-seam"></i> {{ t.app_name }}
     </a>
     {% if current_user %}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
@@ -20,18 +27,37 @@
     </button>
     <div class="collapse navbar-collapse" id="nav">
       <ul class="navbar-nav me-auto">
-        {% if 'dashboard' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>{% endif %}
-        {% if 'clientes' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('clientes') }}">Clientes</a></li>{% endif %}
-        {% if 'stock' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('stock') }}">Stock</a></li>{% endif %}
-        {% if 'pedidos' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('pedidos') }}">Pedidos</a></li>{% endif %}
-        {% if 'usuarios' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('usuarios') }}">Usuarios</a></li>{% endif %}
-        {% if 'reportes' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('reportes') }}">Reportes</a></li>{% endif %}
+        {% if 'dashboard' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">{{ t.dashboard }}</a></li>{% endif %}
+        {% if 'clientes' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('clientes') }}">{{ t.clientes }}</a></li>{% endif %}
+        {% if 'stock' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('stock') }}">{{ t.stock }}</a></li>{% endif %}
+        {% if 'pedidos' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('pedidos') }}">{{ t.pedidos }}</a></li>{% endif %}
+        {% if 'usuarios' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('usuarios') }}">{{ t.usuarios }}</a></li>{% endif %}
+        {% if 'reportes' in menu %}<li class="nav-item"><a class="nav-link" href="{{ url_for('reportes') }}">{{ t.reportes }}</a></li>{% endif %}
       </ul>
-      <span class="navbar-text text-light me-3">
-        <i class="bi bi-person-circle"></i> {{ current_user }}
-        <span class="badge bg-primary text-uppercase">{{ current_rol }}</span>
-      </span>
-      <a class="btn btn-outline-light btn-sm" href="{{ url_for('logout') }}">Salir</a>
+
+      <div class="d-flex align-items-center gap-2">
+        <div class="dropdown">
+          <button class="btn btn-sm btn-outline-light" data-bs-toggle="dropdown" title="{{ t.language }}">
+            <i class="bi bi-translate"></i>
+            <span class="text-uppercase">{{ lang }}</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item {% if lang=='en' %}active{% endif %}" href="?lang=en">English</a></li>
+            <li><a class="dropdown-item {% if lang=='es' %}active{% endif %}" href="?lang=es">Español</a></li>
+            <li><a class="dropdown-item {% if lang=='pt' %}active{% endif %}" href="?lang=pt">Português</a></li>
+          </ul>
+        </div>
+
+        <button id="themeToggle" class="btn btn-sm btn-outline-light" title="{{ t.dark_mode }}">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+
+        <span class="navbar-text text-light">
+          <i class="bi bi-person-circle"></i> {{ current_user }}
+          <span class="badge bg-primary text-uppercase">{{ current_rol }}</span>
+        </span>
+        <a class="btn btn-outline-light btn-sm" href="{{ url_for('logout') }}">{{ t.logout }}</a>
+      </div>
     </div>
     {% endif %}
   </div>
@@ -49,6 +75,37 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function(){
+  var html = document.documentElement;
+  var btn = document.getElementById("themeToggle");
+  var icon = btn ? btn.querySelector("i") : null;
+
+  function apply(theme){
+    html.setAttribute("data-bs-theme", theme);
+    if (icon) {
+      icon.className = theme === "dark" ? "bi bi-sun" : "bi bi-moon-stars";
+    }
+    if (btn) {
+      btn.title = theme === "dark"
+        ? "{{ t.light_mode }}"
+        : "{{ t.dark_mode }}";
+    }
+  }
+
+  var saved = "{{ session.get('theme', '') }}";
+  var initial = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  apply(initial);
+
+  if (btn) {
+    btn.addEventListener("click", function(){
+      var next = html.getAttribute("data-bs-theme") === "dark" ? "light" : "dark";
+      apply(next);
+      fetch("/set-theme/" + next);
+    });
+  }
+})();
+</script>
 {% block scripts %}{% endblock %}
 </body>
 </html>
